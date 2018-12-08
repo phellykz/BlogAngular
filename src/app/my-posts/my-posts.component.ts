@@ -14,20 +14,24 @@ export class MyPostsComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFileSelection(event){
-    const fileList: FileList = event.target.files;
-    if (fileList.length>0) {
-      const file = fileList[0];
-      this.myFire.uploadFile(file)
-        .then(data=>{
-          //TO DO
-          this.notifier.display('sucess', 'Picture Successfully uploaded!');
-          console.log(data['fileUrl']);
-        })
-        .catch(err=>{
-          this.notifier.display('error', err.message);
-        })
-    }
+  // onFileSelection(event){
+  //   const fileList: FileList = event.target.files;
+  //   if (fileList.length>0) {
+  //     const file = fileList[0];
+  //     this.myFire.uploadFile(file)
+  //       .then(data=>{
+  //         //TO DO
+  //         this.notifier.display('sucess', 'Picture Successfully uploaded!');
+  //         console.log(data['fileUrl']);
+  //       })
+  //       .catch(err=>{
+  //         this.notifier.display('error', err.message);
+  //       })
+  //   }
+  // }
+
+  post(form){
+    console.log(form.value.title);
   }
 
 }
