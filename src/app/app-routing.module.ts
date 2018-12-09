@@ -11,12 +11,13 @@ import { RouteGuard } from './auth/route-guard';
 
 
 const routes: Routes = [
-  {path: "", component: HomeComponent},
+  {path: "home", component: HomeComponent},
   {path: "AllPosts", component: AllPostsComponent, canActivate: [RouteGuard]},
   {path: "posts", component: MyPostsComponent, canActivate: [RouteGuard]},
   {path: "signup", component: SignUpComponent},
   {path: "login", component: LoginComponent},
-  {path: "logout", component: LogoutComponent}
+  {path: "logout", component: LogoutComponent},
+  {path: "", redirectTo: "login", pathMatch: "full"}
 ];
 
 @NgModule({

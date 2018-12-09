@@ -14,6 +14,7 @@ import { NotificationService } from './../../shared/notification.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
   constructor(  private notifier: NotificationService, 

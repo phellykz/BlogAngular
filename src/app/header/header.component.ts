@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
         firebase.auth().signOut();
       }
     });
+
   }
 
   onLogout(){
@@ -57,7 +58,7 @@ export class HeaderComponent implements OnInit {
     .then(()=>{
       this.userService.destroy();
       this.isLoggedIn = false;
-      
+      this.router.navigate([""]);     
     })
   }
 

@@ -18,6 +18,11 @@ import { RouteGuard } from './auth/route-guard';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationService } from './shared/notification.service';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { FirebaseConfig } from 'src/environments/firebase.config';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +38,10 @@ import { NotificationService } from './shared/notification.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(FirebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [RouteGuard, 
               NotificationService, 
@@ -42,4 +50,5 @@ import { NotificationService } from './shared/notification.service';
             ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
