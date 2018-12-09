@@ -22,6 +22,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseConfig } from 'src/environments/firebase.config';
+import { ComentComponent } from './coment/coment.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FirebaseConfig } from 'src/environments/firebase.config';
     LoginComponent,
     HomeComponent,
     LogoutComponent,
-    NotificationComponent
+    NotificationComponent,
+    ComentComponent
   ],
   imports: [
     BrowserModule,

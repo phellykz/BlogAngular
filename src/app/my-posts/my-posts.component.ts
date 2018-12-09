@@ -5,6 +5,8 @@ import { NotificationService } from './../shared/notification.service';
 import { MyFireService } from './../shared/myFireService';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { map } from 'rxjs/operators';
 
 // import {AccordionModule} from 'primeng/accordion';
 // import {MenuItem} from 'primeng/api';
@@ -17,70 +19,50 @@ import * as firebase from 'firebase';
 })
 
 export class MyPostsComponent implements OnInit {
+  posts: any;
+  myPosts: Array<any> = [];
+  user = firebase.auth().currentUser;
 
-  constructor(private myFire: MyFireService, private notifier: NotificationService, private dao: DaoServiceService) { }
+  constructor(private myFire: MyFireService, private notifier: NotificationService,
+    private db: AngularFireDatabase, private dao: DaoServiceService) {
+
+    this.db.list(ENTITIES.posts).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(snapshot => ({ key: snapshot.payload.key, ...snapshot.payload.val() }))))
+      .subscribe(posts => {
+        this.posts = posts, this.getMyPosts();
+      });
+  }
 
   ngOnInit() {
 
   }
 
-  // onFileSelection(event){
-  //   const fileList: FileList = event.target.files;
-  //   if (fileList.length>0) {
-  //     const file = fileList[0];
-  //     this.myFire.uploadFile(file)
-  //       .then(data=>{
-  //         //TO DO
-  //         this.notifier.display('sucess', 'Picture Successfully uploaded!');
-  //         console.log(data['fileUrl']);
-  //       })
-  //       .catch(err=>{
-  //         this.notifier.display('error', err.message);
-  //       })
-  //   }
-  // }
-
-  // post(form){
-  //   var post = new Post();
-  //   post.title = form.value.title;
-  //   post.body = form.value.body;
-  //   post.date = new Date();
-  //   post.coments = [];
-  //   post.autor = "EU MESMO"
-
-  //   // this.dao.insert<Post>(ENTITIES.posts, post);
-
-  //   this.dao.list(ENTITIES.posts).push(post);
-
-
-  //   console.log(form.value.title);
-  // }
-
+  getMyPosts() {
+    for (var i = 0; i < this.posts.length; i++) {
+      if (this.posts[i].author == this.user.uid) {
+        this.myPosts.push(this.posts[i]);
+      }
+    }
+  }
 
   post(form) {
+    this.myPosts = [];
 
-    var user = firebase.auth().currentUser;
-    // A post entry.
     var postData = {
-      author: user.displayName,
+      author: this.user.uid,
       body: form.value.body,
       title: form.value.title,
       date: new Date(),
-      coments: []
+      coments: [],
     };
-  
-    // Get a key for a new Post.
-    var newPostKey = firebase.database().ref().child('posts').push().key;
-  
-    // Write the new post's data simultaneously in the posts list and the user's post list.
-    var updates = {};
-    updates['/posts/' + newPostKey] = postData;
-    updates['/user-posts/' + user.uid + '/' + newPostKey] = postData;
-  
-    return firebase.database().ref().update(updates);
 
-    // form.value.title = "";
-    // form.value.body = "";
+    this.dao.insert<Object>('posts', postData);
+  }
+
+  del(post) {
+    this.myPosts = [];
+    this.dao.remove<Object>('posts', post);
   }
 
 }
