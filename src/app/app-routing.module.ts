@@ -1,3 +1,4 @@
+import { ComentComponent } from './coment/coment.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: "home", component: HomeComponent},
   {path: "AllPosts", component: AllPostsComponent, canActivate: [RouteGuard]},
   {path: "posts", component: MyPostsComponent, canActivate: [RouteGuard]},
+  {path: "coment", component: ComentComponent, canActivate: [RouteGuard]},
   {path: "signup", component: SignUpComponent},
   {path: "login", component: LoginComponent},
   {path: "logout", component: LogoutComponent},

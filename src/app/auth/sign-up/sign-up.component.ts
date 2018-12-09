@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import * as firebase from 'firebase';
 import { NotificationService } from 'src/app/shared/notification.service';
+import { User } from 'src/app/entity/User';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,6 +22,8 @@ export class SignUpComponent implements OnInit {
     const fullName = f.value.fullName;
     const email = f.value.email;
     const password = f.value.password;
+
+    var user = new User();
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then( userData => {

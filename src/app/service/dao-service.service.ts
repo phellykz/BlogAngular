@@ -12,7 +12,6 @@ export class DaoServiceService {
 
   insert<T>(entity: string, obj: T): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-
       this.angularFire.list(entity).push(obj)
         .then(key => resolve(key), (error) => reject(error));
     });

@@ -1,8 +1,8 @@
 export const FirebaseConfig = {
-    apiKey: "AIzaSyCQtph20r3jejDopK-QEy4AcMmV-eee0B4",
-    authDomain: "myinsta-24608.firebaseapp.com",
-    databaseURL: "https://myinsta-24608.firebaseio.com",
-    projectId: "myinsta-24608",
-    storageBucket: "myinsta-24608.appspot.com",
-    messagingSenderId: "977712781060"
+  apiKey: "AIzaSyABoemj-OqBmz-RpMbnNlGA-iJr_PoaW0w",
+  authDomain: "my-blog-d9b8e.firebaseapp.com",
+  databaseURL: "https://my-blog-d9b8e.firebaseio.com",
+  projectId: "my-blog-d9b8e",
+  storageBucket: "my-blog-d9b8e.appspot.com",
+  messagingSenderId: "832907276948"
   };
