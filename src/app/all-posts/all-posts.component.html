@@ -1,21 +1,72 @@
-<div class="list">
-  <h2>USUARIOS</h2>  
-  <table class="table table-striped" >
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Body</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let p of posts" >
-      <tr >
-        <td>{{p.title}}</td>
-        <td>{{p.body}}</td>
-        <td><button type="submit" class="btn btn-outline-danger" (click)="del(p.key)" >Excluir</button></td>
-      </tr>
-      <tr *ngFor="let c of coments" >
-        <td *ngIf="p.key == c.idPost">{{c.body}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid">
+  <h1>Posts</h1>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="col-sm-12">
+        <div class="myCardsPost" *ngFor="let post of posts">
+          <p-card>
+            <p-header>
+              <strong class="title">
+                {{post.title}}
+              </strong>
+            </p-header>
+              <p>
+                {{post.body}}
+              </p>
+              <p>
+                {{post.author}}
+              </p>
+              <p>
+                {{post.date}}
+              </p>
+            <p-footer>
+              <div *ngFor="let coment of coments">
+                <div *ngIf="post.key == coment.idPost">
+                  <div class="myCardsComent">
+                    <p-card>
+                      <p>
+                        {{coment.body}}
+                      </p>
+                      <p>
+                        {{coment.author}}
+                      </p>
+                      <p>
+                        {{coment.date}}
+                      </p>
+                      <p>
+                        <button pButton type="button" class="ui-button-raised ui-button-rounded ui-button-danger" label="Exclir comentario"
+                          (click)="delComent(coment.key)"></button>
+                      </p>
+                    </p-card>
+                  </div>
+                </div>
+              </div>
+              <p>
+                <button pButton type="button" class="ui-button-raised ui-button-rounded ui-button-primary" label="Comentar post"
+                  (click)="coment(post.key)"></button>
+              </p>
+            </p-footer>
+          </p-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <p-card>
+              <form (ngSubmit)="post(f);f.reset();" #f='ngForm'>
+                <!-- <form> -->
+                <div class="form-group">
+                  <label for="title">Titulo</label>
+                  <input type="text" name="title" id="title" ngModel class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="body">Body</label>
+                  <textarea name="body" id="body" ngModel class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post</button>
+              </form>
+            
+      </p-card>
+    </div>
+  </div>
 </div>

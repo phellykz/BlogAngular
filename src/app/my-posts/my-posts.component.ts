@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
+import { UserService } from '../shared/user.service';
 
 // import {AccordionModule} from 'primeng/accordion';
 // import {MenuItem} from 'primeng/api';
@@ -22,10 +23,10 @@ export class MyPostsComponent implements OnInit {
   posts: any;
   coments: any;
   myPosts: Array<any> = [];
-
+  name: string = '';
   user = firebase.auth().currentUser;
 
-  constructor(private myFire: MyFireService, private notifier: NotificationService,
+  constructor( private userService: UserService, private myFire: MyFireService, private notifier: NotificationService,
     private db: AngularFireDatabase, private dao: DaoServiceService, private router: Router) {
 
     this.getKeyPosts();
@@ -33,17 +34,18 @@ export class MyPostsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.name = this.userService.getProfile().name;
   }
 
   post(form) {
     this.myPosts = [];
 
     var postData = {
-      author: this.user.uid,
+      uid: this.user.uid,
+      author: this.name,
       body: form.value.body,
       title: form.value.title,
-      date: new Date(),
+      date: new Date().toDateString(),
       coments: [],
     };
 
@@ -52,7 +54,7 @@ export class MyPostsComponent implements OnInit {
 
   getMyPosts() {
     for (var i = 0; i < this.posts.length; i++) {
-      if (this.posts[i].author == this.user.uid) {
+      if (this.posts[i].uid == this.user.uid) {
         this.myPosts.push(this.posts[i]);
       }
     }

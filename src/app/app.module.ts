@@ -1,6 +1,7 @@
 import { UserService } from './shared/user.service';
 import { MyFireService } from './shared/myFireService';
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -24,6 +25,9 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseConfig } from 'src/environments/firebase.config';
 import { ComentComponent } from './coment/coment.component';
 
+import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'primeng/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,11 +43,14 @@ import { ComentComponent } from './coment/coment.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ButtonModule,
+    CardModule
   ],
   providers: [RouteGuard, 
               NotificationService, 

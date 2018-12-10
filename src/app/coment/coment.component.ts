@@ -31,11 +31,10 @@ export class ComentComponent implements OnInit {
   }
 
   coment(form) {
-
     var comentData = {
       idPost: this.idPost,
       body: form.value.body,
-      date: new Date(),
+      date: new Date().toDateString(),
       author: this.name
     }
 

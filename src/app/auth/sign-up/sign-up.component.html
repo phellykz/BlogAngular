@@ -1,26 +1,27 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4">
-      <form (ngSubmit)="onSubmit(f)" #f='ngForm'>
+<div class="carSingup">
 
-        <div class="form-group">
-          <label for="fullName">Full name</label>
-          <input type="fullName" name="fullName" id="fullName" ngModel class="form-control" required>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" ngModel class="form-control" required>
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" ngModel class="form-control" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-      </form>
-    </div>
-  </div>
+  <p-card>
+    <form (ngSubmit)="onSubmit(f)" #f='ngForm'>
+      
+      <div class="form-group">
+        <label for="fullName">Full name</label>
+        <input type="fullName" name="fullName" id="fullName" ngModel class="form-control" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" ngModel class="form-control" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" ngModel class="form-control" required>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+      
+    </form>
+  </p-card>
+  
 </div>
+<div class="a">.</div>
