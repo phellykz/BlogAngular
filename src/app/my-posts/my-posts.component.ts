@@ -1,5 +1,5 @@
+import { Router } from '@angular/router';
 import { ENTITIES } from './../util/ENTITIES';
-import { Post } from '../entity/Post';
 import { DaoServiceService } from './../service/dao-service.service';
 import { NotificationService } from './../shared/notification.service';
 import { MyFireService } from './../shared/myFireService';
@@ -20,30 +20,20 @@ import { map } from 'rxjs/operators';
 
 export class MyPostsComponent implements OnInit {
   posts: any;
+  coments: any;
   myPosts: Array<any> = [];
+
   user = firebase.auth().currentUser;
 
   constructor(private myFire: MyFireService, private notifier: NotificationService,
-    private db: AngularFireDatabase, private dao: DaoServiceService) {
+    private db: AngularFireDatabase, private dao: DaoServiceService, private router: Router) {
 
-    this.db.list(ENTITIES.posts).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(snapshot => ({ key: snapshot.payload.key, ...snapshot.payload.val() }))))
-      .subscribe(posts => {
-        this.posts = posts, this.getMyPosts();
-      });
+    this.getKeyPosts();
+    this.getKeyComents();
   }
 
   ngOnInit() {
 
-  }
-
-  getMyPosts() {
-    for (var i = 0; i < this.posts.length; i++) {
-      if (this.posts[i].author == this.user.uid) {
-        this.myPosts.push(this.posts[i]);
-      }
-    }
   }
 
   post(form) {
@@ -60,9 +50,52 @@ export class MyPostsComponent implements OnInit {
     this.dao.insert<Object>('posts', postData);
   }
 
+  getMyPosts() {
+    for (var i = 0; i < this.posts.length; i++) {
+      if (this.posts[i].author == this.user.uid) {
+        this.myPosts.push(this.posts[i]);
+      }
+    }
+  }
+
+  getKeyPosts() {
+    this.dao.list(ENTITIES.posts).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(snapshot => ({ key: snapshot.payload.key, ...snapshot.payload.val() }))))
+      .subscribe(posts => {
+        this.posts = posts, this.getMyPosts();
+      });
+  }
+
+  getKeyComents() {
+    this.dao.list(ENTITIES.coments).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(snapshot => ({ key: snapshot.payload.key, ...snapshot.payload.val() }))))
+      .subscribe(coments => {
+        this.coments = coments/*, this.getComents()*/, console.log(this.coments);
+      });
+  }
+
+  // getComents() {
+  //   var j = 0;
+  //   for (var i = 0; i < this.myPosts.length; i++) {
+  //     for (var l = 0; l< this.coments.length; l++) {
+  //       if (this.myPosts[i].key == this.coments.idPost) {
+  //         this.myPosts[i].com[j].push(this.posts[i]);
+  //         j++;
+  //       }
+  //     }
+  //   }
+  //   console.log(this.myPosts);
+  // }
+
   del(post) {
     this.myPosts = [];
     this.dao.remove<Object>('posts', post);
+  }
+
+  coment(p) {
+    this.router.navigate(['coment', { key: p }]);
   }
 
 }

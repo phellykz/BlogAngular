@@ -1,95 +1,98 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase,AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DaoServiceService {
 
-  constructor(private angularFire: AngularFireDatabase) { }
+    constructor(private angularFire: AngularFireDatabase) { }
 
-  insert<T>(entity: string, obj: T): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      this.angularFire.list(entity).push(obj)
-        .then(key => resolve(key), (error) => reject(error));
-    });
-  }
+    insert<T>(entity: string, obj: T): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            this.angularFire.list(entity).push(obj)
+                .then(key => resolve(key), (error) => reject(error));
+        });
+    }
 
-  update<T>(entity: string, key: string, data: any): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
+    update<T>(entity: string, key: string, data: any): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
 
-          this.angularFire.list(entity).update(key, data)
-              .then(() => resolve())
-              .catch(error => reject(error));
-      });
-  }
+            this.angularFire.list(entity).update(key, data)
+                .then(() => resolve())
+                .catch(error => reject(error));
+        });
+    }
 
-  updateByPath<T>(entity: string, key: string, path: string, data: any): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
-          this.angularFire.list(`${entity}/${path}/${key}`).push(data)
-              .then(() => resolve());
-      });
-  }
-
-
-  remove<T>(entity: string, key: string): Promise<void> {
-      return new Promise<void>((resolve, reject) => {
-
-          this.angularFire.list(entity).remove(key)
-              .then(() => resolve())
-              .catch(error => reject(error));
-      });
-  }
+    updateByPath<T>(entity: string, key: string, path: string, data: any): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.angularFire.list(`${entity}/${path}/${key}`).push(data)
+                .then(() => resolve());
+        });
+    }
 
 
-  list<T>(entity: string): AngularFireList<T[]> {
-      return this.angularFire.list(entity);
-  }
+    remove<T>(entity: string, key: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+
+            this.angularFire.list(entity).remove(key)
+                .then(() => resolve())
+                .catch(error => reject(error));
+        });
+    }
 
 
-  search<T>(entity: string, property: string, value: any): AngularFireList<T[]> {
-      return this.angularFire.list(entity,
-              query => query.orderByChild(property).equalTo(value));
-  }
+    list<T>(entity: string): AngularFireList<T[]> {
+        return this.angularFire.list(entity);
+    }
 
-  getUserKey<T>(entity: string, property: string, value: string): Promise<T> {
-      return new Promise<any>((resolve, reject) => {
-          this.angularFire.list(entity,
-              query => query.orderByChild(property).equalTo(value))
-              .snapshotChanges().pipe(
-              map(actions =>
-                  actions.map(snapshot =>  snapshot.key )
-              ))
-              .subscribe(
-                  result => resolve(result),
-                  error => reject(error)
-              );
-      });
-  }
+    search<T>(entity: string, property: string, value: any): AngularFireList<T[]> {
+        return this.angularFire.list(entity,
+            query => query.orderByChild(property).equalTo(value));
+    }
 
-  get<T>(entity: string, property: string, value: any): Promise<T> {
-      return new Promise<any>((resolve, reject) => {
-          this.angularFire.list(entity,
-              query => query.orderByChild(property).equalTo(value))
-              .valueChanges().subscribe(
-                  result => resolve(result[0]),
-                  error => reject(error)
-              );
-      });
-  }
+    getUserKey<T>(entity: string, property: string, value: string): Promise<T> {
+        return new Promise<any>((resolve, reject) => {
+            this.angularFire.list(entity,
+                query => query.orderByChild(property).equalTo(value))
+                .snapshotChanges().pipe(
+                    map(actions =>
+                        actions.map(snapshot => snapshot.key)
+                    ))
+                .subscribe(
+                    result => resolve(result),
+                    error => reject(error)
+                );
+        });
+    }
+
+    get<T>(entity: string, property: string, value: any): Promise<T> {
+        return new Promise<any>((resolve, reject) => {
+            this.angularFire.list(entity,
+                query => query.orderByChild(property).equalTo(value))
+                .valueChanges().subscribe(
+                    result => resolve(result[0]),
+                    error => reject(error)
+                );
+        });
+    }
 
 
-  getByKey<T>(entity: string,  value: any): Promise<T> {
-      return new Promise<any>((resolve, reject) => {
-          this.angularFire.list(entity,
-              query => query.orderByKey().equalTo(value))
-              .valueChanges().subscribe(
-                  result => resolve(result[0]),
-                  error => reject(error)
-              );
-      });
-  }
+    getByKey<T>(entity: string, value: any): Promise<T> {
+        return new Promise<any>((resolve, reject) => {
+            this.angularFire.list(entity,
+                query => query.orderByKey().equalTo(value))
+                .valueChanges().subscribe(
+                    result => resolve(result[0]),
+                    error => reject(error)
+                );
+        });
+    }
+
+    getKey<T>(entity: string): AngularFireList<T[]> {
+        return this.angularFire.list(entity);
+    }
 
 }
