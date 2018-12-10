@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { DaoServiceService } from '../service/dao-service.service';
 import { UserService } from '../shared/user.service';
+import { ENTITIES } from '../util/ENTITIES';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -11,6 +13,7 @@ import { UserService } from '../shared/user.service';
   styleUrls: ['./coment.component.css']
 })
 export class ComentComponent implements OnInit {
+  
   idPost: string;
   name: string = '';
   user = firebase.auth().currentUser;
@@ -22,6 +25,7 @@ export class ComentComponent implements OnInit {
       }
     );
   }
+
   ngOnInit() {
     this.name = this.userService.getProfile().name;
   }
@@ -37,5 +41,5 @@ export class ComentComponent implements OnInit {
 
     this.dao.insert<Object>('coments', comentData);
 
-  }
+  }  
 }
