@@ -76,22 +76,14 @@ export class MyPostsComponent implements OnInit {
       });
   }
 
-  // getComents() {
-  //   var j = 0;
-  //   for (var i = 0; i < this.myPosts.length; i++) {
-  //     for (var l = 0; l< this.coments.length; l++) {
-  //       if (this.myPosts[i].key == this.coments.idPost) {
-  //         this.myPosts[i].com[j].push(this.posts[i]);
-  //         j++;
-  //       }
-  //     }
-  //   }
-  //   console.log(this.myPosts);
-  // }
-
   del(post) {
     this.myPosts = [];
     this.dao.remove<Object>('posts', post);
+  }
+
+  delComent(coment) {
+    this.coments = [];
+    this.dao.remove<Object>('coments', coment);
   }
 
   coment(p) {

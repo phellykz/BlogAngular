@@ -7,7 +7,7 @@
         <th>Body</th>
       </tr>
     </thead>
-    <tbody *ngFor="let p of myPosts; let i = index">
+    <tbody *ngFor="let p of myPosts">
       <tr>
         <td>{{p.title}}</td>
         <td>{{p.body}}</td>
@@ -16,24 +16,8 @@
       </tr>
       <tr *ngFor="let c of coments" >
         <td *ngIf="p.key == c.idPost">{{c.body}}</td>
+        <td *ngIf="p.key == c.idPost"><button type="submit" class="btn btn-danger" (click)="delComent(c.key)">Excluir</button></td>
       </tr>
-      <!-- <tr *ngFor="let c of coments">
-        <td>{{c.body}}</td>
-      </tr> -->
-      <!-- <table class="table table-striped" *ngFor="let c of coments">
-          <thead>
-            <tr>
-              <th>Body</th>
-              <th>Autor</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{c.body}}</td>
-              <td>{{c.author}}</td>
-            </tr>
-          </tbody>
-        </table> -->
     </tbody>
   </table>
 </div>
