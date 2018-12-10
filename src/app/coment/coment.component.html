@@ -1,3 +1,16 @@
-<p>
-  coment works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <form (ngSubmit)="coment(f); f.reset();" #f='ngForm'>
+
+        <div class="form-group">
+          <label for="body">Body</label>
+          <textarea name="body" id="body" ngModel class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Comentar</button>
+
+      </form>
+    </div>
+  </div>
+</div>

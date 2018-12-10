@@ -1,7 +1,8 @@
-import { Coment } from './Coment';
-import { User } from './User';
+import { User } from "./User";
+import { Coment } from "./Coment";
 
 export class Post{
+    constructor() {}
     id: string;
     title: string;
     body: string;
@@ -9,5 +10,4 @@ export class Post{
     autor: User;
     coments :  Array<Coment>;
 
-    constructor() {}
 }
