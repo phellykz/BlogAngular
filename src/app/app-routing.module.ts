@@ -1,3 +1,4 @@
+import { UpdatePostComponent } from './update-post/update-post.component';
 import { ComentComponent } from './coment/coment.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: "home", component: HomeComponent},
   {path: "allPosts", component: AllPostsComponent, canActivate: [RouteGuard]},
   {path: "myPosts", component: MyPostsComponent, canActivate: [RouteGuard]},
+  {path: "updatePost", component: UpdatePostComponent, canActivate:[RouteGuard]},
   {path: "coment", component: ComentComponent, canActivate: [RouteGuard]},
   {path: "signup", component: SignUpComponent},
   {path: "login", component: LoginComponent},

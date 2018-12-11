@@ -19,10 +19,10 @@ export class ComentComponent implements OnInit {
   user = firebase.auth().currentUser;
 
   constructor(
-    private route: Router,
     private userService: UserService, 
-    private router: ActivatedRoute, 
-    private dao: DaoServiceService) {
+    private router: ActivatedRoute,
+    private dao: DaoServiceService,
+    private route: Router ) {
     this.router.params.subscribe(
       params => {
         this.idPost = params['key'];
@@ -43,6 +43,6 @@ export class ComentComponent implements OnInit {
     }
     
     this.dao.insert<Object>('coments', comentData);
-    this.route.navigate(['/allpost']);
-  }  
+    this.route.navigate(['allPosts']);
+  } 
 }

@@ -92,4 +92,8 @@ export class MyPostsComponent implements OnInit {
     this.router.navigate(['coment', { key: p }]);
   }
 
+  updatePost(p) {
+    this.router.navigate(['updatePost', {key: p.key, author: p.author, body: p.body, date: p.date, title: p.title, uid: p.uid }]);
+  }
+
 }

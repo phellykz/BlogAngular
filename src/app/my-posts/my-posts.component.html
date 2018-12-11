@@ -44,7 +44,12 @@
                 </div>
               </div>
               <p>
-                  <button pButton type="button" class="ui-button-raised ui-button-rounded ui-button-primary" label="Comentar post" (click)="coment(post.key)"></button>
+                <button pButton type="button" class="ui-button-raised ui-button-rounded ui-button-primary" 
+                  label="Comentar post" (click)="coment(post.key)">
+                </button>
+                <button pButton type="button" class="ui-button-raised ui-button-rounded ui-button-success" 
+                  label="Update post" (click)="updatePost(post)">
+                </button>
               </p>
             </p-footer>
           </p-card>

@@ -27,6 +27,7 @@ import { ComentComponent } from './coment/coment.component';
 
 import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
+import { UpdatePostComponent } from './update-post/update-post.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {CardModule} from 'primeng/card';
     HomeComponent,
     LogoutComponent,
     NotificationComponent,
-    ComentComponent
+    ComentComponent,
+    UpdatePostComponent
   ],
   imports: [
     BrowserModule,

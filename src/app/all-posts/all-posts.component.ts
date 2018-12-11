@@ -67,7 +67,7 @@ export class AllPostsComponent implements OnInit {
 
   coment(p) {
     this.router.navigate(['coment', { key: p }]);
-  }
+  } 
 
   delComent(coment) {
     this.dao.remove<Object>('coments', coment);
