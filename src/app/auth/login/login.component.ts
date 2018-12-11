@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     .then(userDataFromDatabase => {
       if (userDataFromDatabase) {
           this.userService.set(userDataFromDatabase);
-          this.router.navigate(['/allpost'])
+          this.router.navigate(['/allpost']);
           console.log(userDataFromDatabase);
       }
     })

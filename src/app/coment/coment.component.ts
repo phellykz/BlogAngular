@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { DaoServiceService } from '../service/dao-service.service';
@@ -18,7 +18,11 @@ export class ComentComponent implements OnInit {
   name: string = '';
   user = firebase.auth().currentUser;
 
-  constructor(private userService: UserService, private router: ActivatedRoute, private dao: DaoServiceService) {
+  constructor(
+    private route: Router,
+    private userService: UserService, 
+    private router: ActivatedRoute, 
+    private dao: DaoServiceService) {
     this.router.params.subscribe(
       params => {
         this.idPost = params['key'];
@@ -37,8 +41,8 @@ export class ComentComponent implements OnInit {
       date: new Date().toDateString(),
       author: this.name
     }
-
+    
     this.dao.insert<Object>('coments', comentData);
-
+    this.route.navigate(['/allpost']);
   }  
 }

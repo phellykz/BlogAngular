@@ -46,53 +46,5 @@ export class DaoServiceService {
 
     list<T>(entity: string): AngularFireList<T[]> {
         return this.angularFire.list(entity);
-    }
-
-    search<T>(entity: string, property: string, value: any): AngularFireList<T[]> {
-        return this.angularFire.list(entity,
-            query => query.orderByChild(property).equalTo(value));
-    }
-
-    getUserKey<T>(entity: string, property: string, value: string): Promise<T> {
-        return new Promise<any>((resolve, reject) => {
-            this.angularFire.list(entity,
-                query => query.orderByChild(property).equalTo(value))
-                .snapshotChanges().pipe(
-                    map(actions =>
-                        actions.map(snapshot => snapshot.key)
-                    ))
-                .subscribe(
-                    result => resolve(result),
-                    error => reject(error)
-                );
-        });
-    }
-
-    get<T>(entity: string, property: string, value: any): Promise<T> {
-        return new Promise<any>((resolve, reject) => {
-            this.angularFire.list(entity,
-                query => query.orderByChild(property).equalTo(value))
-                .valueChanges().subscribe(
-                    result => resolve(result[0]),
-                    error => reject(error)
-                );
-        });
-    }
-
-
-    getByKey<T>(entity: string, value: any): Promise<T> {
-        return new Promise<any>((resolve, reject) => {
-            this.angularFire.list(entity,
-                query => query.orderByKey().equalTo(value))
-                .valueChanges().subscribe(
-                    result => resolve(result[0]),
-                    error => reject(error)
-                );
-        });
-    }
-
-    getKey<T>(entity: string): AngularFireList<T[]> {
-        return this.angularFire.list(entity);
-    }
-
+    }    
 }
