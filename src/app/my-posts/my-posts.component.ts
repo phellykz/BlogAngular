@@ -81,6 +81,7 @@ export class MyPostsComponent implements OnInit {
   del(post) {
     this.myPosts = [];
     this.dao.remove<Object>('posts', post);
+    // this.router.navigate(['allPosts']);
   }
 
   delComent(coment) {
